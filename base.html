@@ -1,0 +1,960 @@
+  {% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101827">
+
+    <title>NewsAdda | Latest News & Updates</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #101827;
+            --primary-light: #1b2940;
+            --accent: #e63946;
+            --accent-dark: #c92533;
+            --text: #202938;
+            --muted: #718096;
+            --surface: #ffffff;
+            --background: #f4f6fa;
+            --border: #e7ebf1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .container-fluid {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        /* Top information bar */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 17px 0;
+        }
+
+        .topbar-inner {
+            width: min(1200px, 92%);
+            margin: auto;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--primary);
+            font-size: 29px;
+            font-weight: 800;
+            letter-spacing: -1.3px;
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            width: 43px;
+            height: 43px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: var(--accent);
+            border-radius: 12px;
+            font-size: 21px;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, .2);
+        }
+
+        .brand span:last-child span {
+            color: var(--accent);
+        }
+
+        .top-info {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .top-info-icon {
+            flex-shrink: 0;
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: #fff0f1;
+            color: var(--accent);
+        }
+
+        .top-info strong {
+            display: block;
+            color: var(--primary);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .top-info small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-btn {
+            background: var(--accent);
+            color: white;
+            border: 1px solid var(--accent);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: .25s ease;
+        }
+
+        .contact-btn:hover {
+            background: var(--accent-dark);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 17px rgba(230, 57, 70, .2);
+        }
+
+        /* Navigation */
+        .main-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--primary);
+            box-shadow: 0 5px 18px rgba(16, 24, 39, .12);
+        }
+
+        .nav-inner {
+            width: min(1200px, 94%);
+            margin: auto;
+        }
+
+        #menu {
+            padding: 0;
+            background: transparent !important;
+        }
+
+        #menu .navbar-nav {
+            gap: 4px;
+        }
+
+        #menu .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 17px 13px;
+            border-bottom: 3px solid transparent;
+            color: #d3dbe7;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: .25s ease;
+        }
+
+        #menu .nav-link i {
+            color: #ff707a;
+            font-size: 13px;
+        }
+
+        #menu .nav-link:hover,
+        #menu .nav-link:focus,
+        #menu .nav-link.active {
+            color: #fff;
+            background: rgba(255,255,255,.055);
+            border-bottom-color: var(--accent);
+        }
+        /* Mobile menu button color */
+.navbar-toggler {
+    background-color: #e63946 !important;
+    border: 1px solid #e63946 !important;
+    border-radius: 8px;
+    padding: 8px 10px;
+    box-shadow: none !important;
+}
+
+/* Hamburger icon white */
+.navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+}
+
+/* Button touch/click karne par */
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    background-color: #c92f3b !important;
+    border-color: #c92f3b !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+        #menu .navbar-toggler {
+            margin: 9px 0;
+            border-color: #596579;
+            box-shadow: none;
+        }
+
+        #menu .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        /* Page content */
+        .page-content {
+            min-height: 400px;
+            animation: pageEnter .45s ease both;
+        }
+
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(9px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Shared existing project classes */
+        .bg-mycolor1 {
+            background: var(--accent) !important;
+        }
+
+        .bg-mycolor2 {
+            background: var(--primary) !important;
+        }
+
+        .text-mycolor1 {
+            color: var(--accent) !important;
+        }
+
+        .text-mycolor2 {
+            color: var(--accent) !important;
+        }
+
+        .slider {
+            min-height: 450px;
+        }
+
+        .imgslide {
+            height: 450px;
+            object-fit: cover;
+        }
+
+        .catimg {
+            height: 90px;
+            object-fit: cover;
+        }
+
+        .branchcard,
+        .servicecard {
+            transition: transform .3s ease, box-shadow .3s ease;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .branchcard:hover,
+        .servicecard:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 35px rgba(16,24,39,.12);
+        }
+
+        .blogimg {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .imgdetails {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        .s {
+            min-height: 200px;
+        }
+
+        .contactus {
+            min-height: 400px;
+        }
+
+        .ufooter {
+            min-height: 300px;
+        }
+
+        .bfooter {
+            min-height: 55px;
+        }
+
+        .gallery {
+            min-height: 400px;
+        }
+
+        .team {
+            min-height: 200px;
+        }
+
+        .imgteam {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .menutext {
+            font-size: 14px;
+            padding-top: 6px;
+            padding-left: 15px;
+        }
+
+        .category {
+            min-height: 200px;
+        }
+
+        .caticon {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            line-height: 78px;
+            text-align: center;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 50%;
+            transition: .3s ease;
+        }
+
+        .caticon:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        .whyus {
+            min-height: 300px;
+        }
+
+        .whyic {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+            width: 70px;
+            font-size: 27px;
+            color: var(--accent);
+            background: #fff0f1;
+            border: 1px solid #ffd9dc;
+            border-radius: 14px;
+            transition: .3s ease;
+        }
+
+        .whyic:hover {
+            color: white;
+            background: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .iccontact {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 40px;
+            font-size: 17px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.35);
+            transition: .3s ease;
+        }
+
+        .iccontact:hover {
+            color: white;
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .t {
+            height: 50px;
+        }
+
+        .ta {
+            height: 120px;
+        }
+
+        .imgcat {
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .imgabout {
+            height: 290px;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        /* Form elements */
+        input,
+        textarea,
+        select {
+            max-width: 100%;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #dfe5ed;
+            border-radius: 9px;
+            padding: 11px 13px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 .2rem rgba(230,57,70,.1);
+        }
+
+        /* Footer */
+        .footer-main {
+            background: #0b1220;
+            color: #aab5c5;
+            padding: 54px 0 35px;
+            margin-top: 0;
+        }
+
+        .footer-inner {
+            width: min(1200px, 92%);
+            margin: auto;
+        }
+
+        .footer-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .footer-title::after {
+            content: "";
+            display: block;
+            width: 37px;
+            height: 3px;
+            margin-top: 10px;
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 11px;
+        }
+
+        .footer-links a {
+            color: #aab5c5;
+            font-size: 12px;
+            transition: .2s ease;
+        }
+
+        .footer-links a i {
+            color: var(--accent);
+            margin-right: 7px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 4px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 9px;
+            margin-top: 18px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            color: white;
+            background: #1c293d;
+            border-radius: 9px;
+            transition: .25s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            background: #080d17;
+            color: #9ba7b8;
+            padding: 17px 12px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .footer-bottom a {
+            color: #ff7b84;
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 999;
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            color: white;
+            background: var(--accent);
+            border-radius: 12px;
+            box-shadow: 0 5px 18px rgba(16,24,39,.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: .25s ease;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            color: white;
+            background: var(--accent-dark);
+        }
+
+        /* Responsive design */
+        @media (max-width: 991px) {
+            .topbar-inner {
+                width: 94%;
+            }
+
+            .top-info {
+                margin-top: 12px;
+            }
+
+            #menu .navbar-nav {
+                padding: 10px 0 15px;
+            }
+
+            #menu .nav-link {
+                padding: 11px 12px;
+                border-bottom: 0;
+                border-left: 3px solid transparent;
+            }
+
+            #menu .nav-link:hover,
+            #menu .nav-link.active {
+                border-left-color: var(--accent);
+                border-bottom-color: transparent;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .topbar {
+                padding: 13px 0;
+            }
+
+            .brand {
+                font-size: 25px;
+            }
+
+            .brand-icon {
+                width: 38px;
+                height: 38px;
+            }
+
+            .top-info {
+                margin-top: 15px;
+            }
+
+            .topbar .contact-btn {
+                margin-top: 14px;
+            }
+
+            .slider {
+                min-height: 260px;
+            }
+
+            .imgslide {
+                height: 260px;
+            }
+
+            .imgdetails {
+                height: 250px;
+            }
+
+            .footer-main {
+                padding: 38px 0 20px;
+            }
+
+            .ufooter {
+                min-height: auto;
+            }
+
+            .imgteam {
+                height: 250px;
+            }
+
+            .blogimg {
+                height: 200px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid">
+
+    <!-- Header -->
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="row align-items-center">
+
+                <div class="col-12 col-lg-3">
+                    <a href="/home/" class="brand" aria-label="NewsAdda Home">
+                        <span class="brand-icon">
+                            <i class="fa-solid fa-newspaper"></i>
+                        </span>
+                        <span>News<span>Adda</span></span>
+                    </a>
+                </div>
+
+                <div class="col-6 col-lg-3">
+                    <div class="top-info">
+                        <span class="top-info-icon">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </span>
+                        <div>
+                            <strong>CALL US</strong>
+                            <small>+91-8546039471</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-4">
+                    <div class="top-info">
+                        <span class="top-info-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <div>
+                            <strong>EMAIL US</strong>
+                            <small>aryanmaurya294@gmail.com</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-2 text-lg-end">
+                    <a href="/contact/" class="btn contact-btn">
+                        Contact Us <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <div class="main-nav">
+        <div class="nav-inner">
+            <nav class="navbar navbar-expand-lg navbar-dark" id="menu">
+                <div class="container-fluid">
+
+                    <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <span class="d-lg-none text-white fw-bold small">
+                        NEWSADDA
+                    </span>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-0">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/">
+                                    <i class="fa-solid fa-house"></i> Home
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/category/">
+                                    <i class="fa-solid fa-newspaper"></i> News
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/aboutus/">
+                                    <i class="fa-solid fa-circle-info"></i> About Us
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/wchoose/">
+                                    <i class="fa-solid fa-award"></i> Why Choose Us
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/team/">
+                                    <i class="fa-solid fa-users"></i> Team
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/gallery/">
+                                    <i class="fa-solid fa-images"></i> Gallery
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact/">
+                                    <i class="fa-solid fa-headset"></i> Contact
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/">
+                                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Django page content -->
+    <main class="page-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-main">
+        <div class="footer-inner">
+            <div class="row g-4">
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a href="/home/" class="brand text-white mb-3">
+                        <span class="brand-icon">
+                            <i class="fa-solid fa-newspaper"></i>
+                        </span>
+                        <span class="text-white">News<span>Adda</span></span>
+                    </a>
+
+                    <p class="footer-text mt-3">
+                        Your trusted destination for the latest news,
+                        important updates and stories that matter.
+                        Stay informed with NewsAdda.
+                    </p>
+
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/1BMW77vBfi/"
+                           target="_blank" rel="noopener noreferrer"
+                           aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+
+                        <a href="https://wa.me/qr/E3EQB7BY4A63F1"
+                           target="_blank" rel="noopener noreferrer"
+                           aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+
+                        <a href="https://www.instagram.com/maurya_king_8315/"
+                           target="_blank" rel="noopener noreferrer"
+                           aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+
+                        <a href="https://x.com/" target="_blank"
+                           rel="noopener noreferrer" aria-label="X">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-6 col-lg-2">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="/home/"><i class="fa-solid fa-angle-right"></i>Home</a></li>
+                        <li><a href="/aboutus/"><i class="fa-solid fa-angle-right"></i>About Us</a></li>
+                        <li><a href="/category/"><i class="fa-solid fa-angle-right"></i>Latest News</a></li>
+                        <li><a href="/gallery/"><i class="fa-solid fa-angle-right"></i>Gallery</a></li>
+                        <li><a href="/contact/"><i class="fa-solid fa-angle-right"></i>Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-6 col-lg-3">
+                    <h5 class="footer-title">Explore</h5>
+                    <ul class="footer-links">
+                        <li><a href="/wchoose/"><i class="fa-solid fa-angle-right"></i>Why Choose Us</a></li>
+                        <li><a href="/team/"><i class="fa-solid fa-angle-right"></i>Our Team</a></li>
+                        <li><a href="/admin/"><i class="fa-solid fa-angle-right"></i>Admin Login</a></li>
+                        <li><a href="/contact/"><i class="fa-solid fa-angle-right"></i>Send Feedback</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <h5 class="footer-title">Contact Information</h5>
+
+                    <p class="footer-text">
+                        <i class="fa-solid fa-location-dot me-2"
+                           style="color:#ff707a"></i>
+                        Sec 5, Vikas Nagar, Tedhi Pulia, Ring Road,
+                        Lucknow, Uttar Pradesh - 226022
+                    </p>
+
+                    <p class="footer-text">
+                        <i class="fa-solid fa-phone me-2"
+                           style="color:#ff707a"></i>
+                        +91-8546039471
+                    </p>
+
+                    <p class="footer-text">
+                        <i class="fa-solid fa-envelope me-2"
+                           style="color:#ff707a"></i>
+                        aryanmaurya294@gmail.com
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <span>
+            Developed by <strong class="text-white">Aryan Maurya</strong>
+            &copy; <span id="currentYear"></span>
+            | <a href="https://www.techpile.in/" target="_blank"
+                 rel="noopener noreferrer">Techpile Technology</a>
+        </span>
+    </div>
+
+</div>
+
+<!-- Back to top -->
+<a href="#" class="back-to-top" id="backToTop"
+   aria-label="Back to top" title="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Automatically update copyright year
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+
+        // Back-to-top button
+        const backToTop = document.getElementById("backToTop");
+
+        function updateBackToTop() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add("show");
+            } else {
+                backToTop.classList.remove("show");
+            }
+        }
+
+        window.addEventListener("scroll", updateBackToTop, {
+            passive: true
+        });
+
+        updateBackToTop();
+
+        backToTop.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        // Highlight the current navigation link
+        const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+
+        document.querySelectorAll("#menu .nav-link").forEach(function (link) {
+            const linkPath = new URL(link.href, window.location.origin)
+                .pathname.replace(/\/+$/, "") || "/";
+
+            if (linkPath === currentPath) {
+                link.classList.add("active");
+                link.setAttribute("aria-current", "page");
+            } else {
+                link.classList.remove("active");
+                link.removeAttribute("aria-current");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

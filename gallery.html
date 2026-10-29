@@ -1,0 +1,249 @@
+ {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .news-gallery {
+    --gallery-navy: #101827;
+    --gallery-red: #e63946;
+    --gallery-muted: #667085;
+    background: #f4f6fa;
+    padding: 45px 0 60px;
+    min-height: 65vh;
+  }
+
+  .news-gallery .gallery-label {
+    display: inline-block;
+    padding: 7px 14px;
+    background: #ffe8ea;
+    color: var(--gallery-red);
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .news-gallery .gallery-heading {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    letter-spacing: -.8px;
+    color: var(--gallery-navy);
+    margin-bottom: 12px;
+  }
+
+  .news-gallery .gallery-heading span {
+    color: var(--gallery-red);
+  }
+
+  .news-gallery .gallery-line {
+    width: 65px;
+    height: 4px;
+    background: var(--gallery-red);
+    border: 0;
+    border-radius: 5px;
+    opacity: 1;
+    margin: 0 auto 15px;
+  }
+
+  .news-gallery .gallery-subtitle {
+    color: var(--gallery-muted);
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 560px;
+    margin: 0 auto 35px;
+  }
+
+  .news-gallery .gallery-card {
+    background: #fff;
+    border: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 7px 24px rgba(16, 24, 39, .07);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+
+  .news-gallery .gallery-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 35px rgba(16, 24, 39, .14);
+  }
+
+  .news-gallery .gallery-image-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #e9edf4;
+  }
+
+  .news-gallery .gallery-image {
+    display: block;
+    width: 100%;
+    height: 255px;
+    object-fit: cover;
+    transition: transform .45s ease;
+  }
+
+  .news-gallery .gallery-card:hover .gallery-image {
+    transform: scale(1.07);
+  }
+
+  .news-gallery .gallery-image-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 45% 0 0;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(16, 24, 39, .18)
+    );
+    pointer-events: none;
+  }
+
+  .news-gallery .gallery-card-body {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .news-gallery .gallery-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #ffe8ea;
+    color: var(--gallery-red);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .news-gallery .gallery-title {
+    color: var(--gallery-navy);
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.5;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .news-gallery .gallery-empty {
+    background: #fff;
+    padding: 45px 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 7px 24px rgba(16, 24, 39, .06);
+  }
+
+  .news-gallery .gallery-empty h3 {
+    color: var(--gallery-navy);
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .news-gallery .gallery-empty p {
+    color: var(--gallery-muted);
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 767px) {
+    .news-gallery {
+      padding: 32px 0 40px;
+    }
+
+    .news-gallery .gallery-image {
+      height: 220px;
+    }
+
+    .news-gallery .gallery-card-body {
+      padding: 15px;
+    }
+
+    .news-gallery .gallery-subtitle {
+      padding: 0 10px;
+      margin-bottom: 25px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .news-gallery *,
+    .news-gallery *::before,
+    .news-gallery *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<section class="news-gallery">
+  <div class="container">
+
+    <!-- Gallery Heading -->
+    <div class="text-center">
+      <span class="gallery-label">NEWSADDA MOMENTS</span>
+
+      <h1 class="gallery-heading">
+        Image <span>Gallery</span>
+      </h1>
+
+      <hr class="gallery-line">
+
+      <p class="gallery-subtitle">
+        Explore our collection of images, memorable moments,
+        and highlights from across NewsAdda.
+      </p>
+    </div>
+
+    <!-- Gallery Images -->
+    <div class="row g-4">
+
+      {% for r in gdata %}
+      <div class="col-sm-6 col-lg-4">
+
+        <article class="gallery-card">
+
+          <div class="gallery-image-wrap">
+            <img
+              src="../{{ r.picture }}"
+              class="gallery-image"
+              alt="{{ r.title }}"
+              loading="lazy">
+          </div>
+
+          <div class="gallery-card-body">
+
+            <div class="gallery-number">
+              {{ forloop.counter|stringformat:"02d" }}
+            </div>
+
+            <h2 class="gallery-title">
+              {{ r.title }}
+            </h2>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      {% empty %}
+      <div class="col-12">
+        <div class="gallery-empty">
+          <h3>No images available</h3>
+          <p>
+            Our gallery is being updated. Please visit again soon.
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

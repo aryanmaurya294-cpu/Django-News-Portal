@@ -1,0 +1,406 @@
+ {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .category-page {
+    --cat-navy: #101827;
+    --cat-red: #e63946;
+    --cat-bg: #f4f6fa;
+    --cat-text: #586477;
+    background: var(--cat-bg);
+    padding: 40px 0 55px;
+  }
+
+  .category-page .section-title {
+    font-size: clamp(27px, 3vw, 36px);
+    font-weight: 800;
+    color: var(--cat-navy);
+    letter-spacing: -.7px;
+    margin-bottom: 10px;
+  }
+
+  .category-page .section-title span {
+    color: var(--cat-red);
+  }
+
+  .category-page .heading-line {
+    width: 65px;
+    height: 4px;
+    background: var(--cat-red);
+    border: 0;
+    border-radius: 5px;
+    opacity: 1;
+    margin: 0 auto 32px;
+  }
+
+  /* Sidebar */
+  .category-page .category-sidebar {
+    background: #fff;
+    border: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 7px 25px rgba(16, 24, 39, .07);
+    position: sticky;
+    top: 20px;
+  }
+
+  .category-page .sidebar-heading {
+    background: var(--cat-navy);
+    color: white;
+    padding: 17px 18px;
+    font-size: 17px;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .category-page .category-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 15px;
+    color: var(--cat-navy);
+    text-decoration: none;
+    border: 0;
+    border-bottom: 1px solid #edf0f5;
+    background: white;
+    transition: background .25s ease, padding .25s ease;
+  }
+
+  .category-page .category-link:last-child {
+    border-bottom: 0;
+  }
+
+  .category-page .category-link:hover {
+    background: #fff0f1;
+    padding-left: 21px;
+    color: var(--cat-red);
+  }
+
+  .category-page .category-thumb {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    object-fit: cover;
+    border-radius: 9px;
+    border: 1px solid #edf0f5;
+  }
+
+  .category-page .category-name {
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 700;
+    flex: 1;
+  }
+
+  .category-page .category-arrow {
+    color: #9aa3b2;
+    font-size: 18px;
+  }
+
+  /* News list */
+  .category-page .news-item {
+    border: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 22px rgba(16, 24, 39, .06);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+
+  .category-page .news-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(16, 24, 39, .12);
+  }
+
+  .category-page .news-photo {
+    width: 100%;
+    height: 100%;
+    min-height: 215px;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+
+  .category-page .news-photo-wrap {
+    height: 100%;
+    min-height: 215px;
+    overflow: hidden;
+  }
+
+  .category-page .news-item:hover .news-photo {
+    transform: scale(1.04);
+  }
+
+  .category-page .news-content {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  .category-page .news-kicker {
+    color: var(--cat-red);
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .9px;
+    margin-bottom: 9px;
+  }
+
+  .category-page .news-title {
+    font-size: 19px;
+    line-height: 1.5;
+    font-weight: 800;
+    color: var(--cat-navy);
+    margin-bottom: 12px;
+  }
+
+  .category-page .news-description {
+    color: var(--cat-text);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+  }
+
+  .category-page .news-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px 15px;
+    color: var(--cat-text);
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
+
+  .category-page .meta-pill {
+    background: #f0f2f7;
+    color: #354156;
+    border-radius: 5px;
+    padding: 6px 9px;
+    font-weight: 700;
+  }
+
+  .category-page .news-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--cat-red);
+    color: white;
+    border: 1px solid var(--cat-red);
+    border-radius: 7px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    margin-top: auto;
+    transition: background .25s ease, transform .25s ease;
+  }
+
+  .category-page .news-button:hover {
+    background: #c92535;
+    border-color: #c92535;
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .category-page .empty-state {
+    background: white;
+    border-radius: 15px;
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--cat-text);
+    box-shadow: 0 6px 22px rgba(16, 24, 39, .05);
+  }
+
+  .category-page .empty-state h3 {
+    color: var(--cat-navy);
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  @media (max-width: 767px) {
+    .category-page {
+      padding: 30px 0 40px;
+    }
+
+    .category-page .category-sidebar {
+      position: static;
+      margin-bottom: 25px;
+    }
+
+    .category-page .category-link {
+      padding: 10px 14px;
+    }
+
+    .category-page .category-thumb {
+      width: 42px;
+      height: 42px;
+      flex-basis: 42px;
+    }
+
+    .category-page .news-photo-wrap {
+      height: 220px;
+      min-height: 0;
+    }
+
+    .category-page .news-photo {
+      height: 220px;
+      min-height: 0;
+    }
+
+    .category-page .news-content {
+      padding: 19px;
+    }
+
+    .category-page .news-title {
+      font-size: 17px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .category-page *,
+    .category-page *::before,
+    .category-page *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<section class="category-page">
+  <div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="section-title text-center">
+      News <span>Categories</span>
+    </h1>
+    <hr class="heading-line">
+
+    <div class="row g-4">
+
+      <!-- Left Category Sidebar -->
+      <aside class="col-lg-3 col-md-4">
+
+        <div class="category-sidebar">
+          <h2 class="sidebar-heading">
+            Browse Categories
+          </h2>
+
+          <div class="list-group list-group-flush">
+
+            {% for x in data1 %}
+            <a href="?id={{ x.id }}"
+               class="category-link">
+
+              <img
+                src="../{{ x.picture }}"
+                class="category-thumb"
+                alt="{{ x.title }}"
+                loading="lazy">
+
+              <span class="category-name">
+                {{ x.title }}
+              </span>
+
+              <span class="category-arrow" aria-hidden="true">
+                ›
+              </span>
+
+            </a>
+            {% empty %}
+            <div class="p-3 text-secondary small">
+              No categories available.
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Right News Listing -->
+      <div class="col-lg-9 col-md-8">
+
+        {% for y in data %}
+
+        <article class="card news-item">
+          <div class="row g-0 h-100">
+
+            <!-- News Image -->
+            <div class="col-lg-4 col-sm-5">
+              <div class="news-photo-wrap">
+                <img
+                  src="../{{ y.picture }}"
+                  class="news-photo"
+                  alt="{{ y.headlines }}"
+                  loading="lazy">
+              </div>
+            </div>
+
+            <!-- News Details -->
+            <div class="col-lg-8 col-sm-7">
+              <div class="news-content">
+
+                <span class="news-kicker">
+                  Latest News
+                </span>
+
+                <h2 class="news-title">
+                  {{ y.headlines }}
+                </h2>
+
+                <p class="news-description">
+                  Read the full story for more details about this
+                  news update and the latest developments.
+                </p>
+
+                <div class="news-meta">
+
+                  <span class="meta-pill">
+                    City: {{ y.city }}
+                  </span>
+
+                  <span class="meta-pill">
+                    {{ y.news_category }}
+                  </span>
+
+                  <span>
+                    <strong>Added:</strong> {{ y.added_date }}
+                  </span>
+
+                </div>
+
+                <a href="/details/?id={{ y.id }}"
+                   class="news-button">
+                  Read Full News
+                  <span aria-hidden="true">→</span>
+                </a>
+
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        {% empty %}
+
+        <div class="empty-state">
+          <h3>No news found</h3>
+          <p class="mb-0">
+            There are no news articles in this category yet.
+            Please select another category.
+          </p>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

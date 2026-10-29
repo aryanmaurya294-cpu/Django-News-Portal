@@ -1,0 +1,82 @@
+  {% extends 'base.html' %}
+
+  {% block content %}
+        <!--start contactus-->
+         <div class="row contactus py-4">
+             <p class="fs-3 text-center">contactus <b class="text-mycolor2">Us</b></p>
+                <hr class="w-25 mx-auto"/>
+                <div class="col-sm-10 mx-auto">
+                    <div class="row">
+                        <div class="col-sm-7">
+                          <form method="post">
+                            {% csrf_token %}
+
+                            <input type="text" class="form-control t mb-3 border-0 shadow-lg" placeholder="Name" name="name" required/>
+                            <input type="email" class="form-control t mb-3 border-0 shadow-lg" placeholder="Email" name="email" required/>
+                            <input type="number" class="form-control t mb-3 border-0 shadow-lg" placeholder="Mobile" name="mob" required/>
+                             
+                                 
+                            <textarea class="form-control" placeholder="Message.."class="from-control ta mb-3 border-0 shadow-lg" name="msg"></textarea><br>
+                            <input type="submit" value="save" class="btn bg-danger" required/>
+                         </form>
+                         <!---
+                         {{x1}}<br/>
+                         {{x2}}<br/>
+                         {{x3}}<br/>
+                         {{x4}}<br/>
+                        -->
+                          </div>
+                        <div class="col-sm-5 bg-dark text-primary p-5">
+                          <h4>Let's Get in touch</h4>
+                             <!--start contactus first-->
+                          <div class="row  pt-2">
+                            <div class="col-1 ">
+                              <i class="fa-solid fa-location-dot iccontact"></i>
+                            </div>
+                            <div class="col-11">
+                              <p class="ps-4">Sec.5 Vikash Nagar Tedhi puliya Ring Road Lucknow, 226022</p>
+                            </div>
+                          </div>
+                             <!--end contactus first-->
+                               <!--start contactus first-->
+                          <div class="row  pt-2">
+                            <div class="col-1 ">
+                              <i class="fa-solid fa-location-dot iccontact"></i>
+                            </div>
+                            <div class="col-11">
+                              <p class="ps-4">Sec.5 Vikash Nagar Tedhi puliya Ring Road Lucknow, 226022</p>
+                            </div>
+                          </div>
+                             <!--end contactus first-->
+                               <!--start contactus first-->
+                          <div class="row  pt-2">
+                            <div class="col-1 ">
+                              <i class="fa-solid fa-location-dot iccontact"></i>
+                            </div>
+                            <div class="col-11">
+                              <p class="ps-4">Sec.5 Vikash Nagar Tedhi puliya Ring Road Lucknow, 226022</p>
+                            </div>
+                          </div>
+                             <!--end contactus first-->
+                               <!--start contactus first-->
+                          <div class="row pt-2">
+                            <div class="col-1 ">
+                              <i class="fa-solid fa-location-dot iccontact"></i>
+                            </div>
+                            <div class="col-11">
+                              <p class="ps-4">Sec.5 Vikash Nagar Tedhi puliya Ring Road Lucknow, 226022</p>
+                            </div>
+                          </div>
+                             <!--end contactus first-->
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+         </div>
+         <!--end contactus-->
+           
+   
+        {% endblock %}

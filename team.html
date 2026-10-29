@@ -1,0 +1,423 @@
+ {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .team-page {
+    --team-navy: #101827;
+    --team-red: #e63946;
+    --team-muted: #667085;
+    background: #f4f6fa;
+    padding: 50px 0 65px;
+  }
+
+  .team-page .team-label {
+    display: inline-block;
+    background: #ffe8ea;
+    color: var(--team-red);
+    padding: 7px 15px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 13px;
+  }
+
+  .team-page .team-heading {
+    color: var(--team-navy);
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    letter-spacing: -.7px;
+    margin-bottom: 12px;
+  }
+
+  .team-page .team-heading span {
+    color: var(--team-red);
+  }
+
+  .team-page .team-line {
+    width: 65px;
+    height: 4px;
+    background: var(--team-red);
+    border: 0;
+    border-radius: 5px;
+    opacity: 1;
+    margin: 0 auto 15px;
+  }
+
+  .team-page .team-intro {
+    color: var(--team-muted);
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 550px;
+    margin: 0 auto 38px;
+  }
+
+  /* Team member cards */
+  .team-page .team-card {
+    position: relative;
+    height: 100%;
+    background: white;
+    border: 1px solid #edf0f5;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(16, 24, 39, .06);
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+
+  .team-page .team-card:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 20px 42px rgba(16, 24, 39, .14);
+  }
+
+  .team-page .team-cover {
+    height: 110px;
+    background: linear-gradient(
+      135deg,
+      #101827,
+      #273b59
+    );
+    position: relative;
+  }
+
+  .team-page .team-cover::after {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border: 22px solid rgba(230, 57, 70, .3);
+    border-radius: 50%;
+    top: -65px;
+    right: -20px;
+  }
+
+  .team-page .team-profile {
+    position: relative;
+    z-index: 1;
+    margin-top: -65px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .team-page .team-image {
+    width: 135px;
+    height: 135px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 5px 18px rgba(16, 24, 39, .15);
+    background: #edf0f5;
+    transition: transform .35s ease;
+  }
+
+  .team-page .team-card:hover .team-image {
+    transform: scale(1.04);
+  }
+
+  .team-page .team-body {
+    padding: 20px 20px 25px;
+    text-align: center;
+  }
+
+  .team-page .team-name {
+    color: var(--team-navy);
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .team-page .team-role {
+    display: inline-block;
+    padding: 7px 13px;
+    background: #fff0f1;
+    color: var(--team-red);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .team-page .team-divider {
+    width: 40px;
+    height: 2px;
+    background: #e5e9f0;
+    border: 0;
+    margin: 0 auto 18px;
+  }
+
+  /* Social media links */
+  .team-page .team-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .team-page .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #e6eaf0;
+    border-radius: 50%;
+    background: white;
+    color: var(--team-navy);
+    font-size: 16px;
+    text-decoration: none;
+    transition: all .25s ease;
+  }
+
+  .team-page .social-link:hover {
+    background: var(--team-red);
+    color: white;
+    border-color: var(--team-red);
+    transform: translateY(-3px);
+  }
+
+  .team-page .team-footer-note {
+    color: var(--team-muted);
+    font-size: 13px;
+    text-align: center;
+    margin-top: 35px;
+  }
+
+  @media (max-width: 767px) {
+    .team-page {
+      padding: 35px 0 45px;
+    }
+
+    .team-page .team-intro {
+      margin-bottom: 25px;
+      padding: 0 8px;
+    }
+
+    .team-page .team-card {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .team-page *,
+    .team-page *::before,
+    .team-page *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<section class="team-page">
+  <div class="container">
+
+    <!-- Heading -->
+    <div class="text-center">
+      <span class="team-label">MEET THE PEOPLE BEHIND THE NEWS</span>
+
+      <h1 class="team-heading">
+        Meet Our <span>Team</span>
+      </h1>
+
+      <hr class="team-line">
+
+      <p class="team-intro">
+        Meet the team behind NewsAdda. We work together across
+        frontend, database, and backend development to build
+        and maintain our news portal.
+      </p>
+    </div>
+
+    <!-- Team Cards -->
+    <div class="row g-4 justify-content-center">
+
+      <!-- Frontend Developer -->
+      <div class="col-sm-6 col-lg-4">
+        <article class="team-card">
+
+          <div class="team-cover"></div>
+
+          <div class="team-profile">
+            <img
+              src="{% static 'images/ar.jpg' %}"
+              class="team-image"
+              alt="Aryan Maurya"
+              loading="lazy">
+          </div>
+
+          <div class="team-body">
+
+            <h2 class="team-name">ARYAN MAURYA</h2>
+
+            <span class="team-role">
+              Frontend Developer
+            </span>
+
+            <hr class="team-divider">
+
+            <div class="team-socials">
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Aryan WhatsApp"
+                 title="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Aryan Instagram"
+                 title="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Aryan Twitter"
+                 title="Twitter">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Aryan LinkedIn"
+                 title="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Database Developer -->
+      <div class="col-sm-6 col-lg-4">
+        <article class="team-card">
+
+          <div class="team-cover"></div>
+
+          <div class="team-profile">
+            <img
+              src="{% static 'images/hr.jpg' %}"
+              class="team-image"
+              alt="Harsh Kesharwani"
+              loading="lazy">
+          </div>
+
+          <div class="team-body">
+
+            <h2 class="team-name">HARSH KESHARWANI</h2>
+
+            <span class="team-role">
+              Database Developer
+            </span>
+
+            <hr class="team-divider">
+
+            <div class="team-socials">
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Harsh WhatsApp"
+                 title="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Harsh Instagram"
+                 title="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Harsh Twitter"
+                 title="Twitter">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Harsh LinkedIn"
+                 title="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Backend Developer -->
+      <div class="col-sm-6 col-lg-4">
+        <article class="team-card">
+
+          <div class="team-cover"></div>
+
+          <div class="team-profile">
+            <img
+              src="{% static 'images/ab.jpg' %}"
+              class="team-image"
+              alt="Abhishek Yadav"
+              loading="lazy">
+          </div>
+
+          <div class="team-body">
+
+            <h2 class="team-name">ABHISHEK YADAV</h2>
+
+            <span class="team-role">
+              Backend Developer
+            </span>
+
+            <hr class="team-divider">
+
+            <div class="team-socials">
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Abhishek WhatsApp"
+                 title="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Abhishek Instagram"
+                 title="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Abhishek Twitter"
+                 title="Twitter">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+
+              <a href="#"
+                 class="social-link"
+                 aria-label="Abhishek LinkedIn"
+                 title="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </div>
+
+    <p class="team-footer-note">
+      Together, building a better NewsAdda experience.
+    </p>
+
+  </div>
+</section>
+
+{% endblock %}
